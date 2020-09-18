@@ -38,11 +38,9 @@ class Tictactoe:
 
     @staticmethod
     def get_easy_coordinate():
-        rand_row = random.choice('123')
-        rand_column = random.choice('123')
-        return [rand_row, rand_column]
+        return [random.choice('123'), random.choice('123')]
 
-    def get_medium_coordinate(self, symbol):
+    def get_medium_coordinate(self, symbol, get_easy=False):
         for i in range(0, 3):  # row
             if self.matrix[i].count(symbol) == 2 and self.matrix[i].count('_') == 1:
                 return [str(i + 1), str(self.matrix[i].index('_') + 1)]
@@ -52,16 +50,19 @@ class Tictactoe:
                 col.append(self.matrix[i][j])
             if col.count(symbol) == 2 and col.count('_') == 1:
                 return [str(col.index('_') + 1), str(j + 1)]
-        toright = []
-        toleft = []
+        diag_right = []
+        diag_left = []
         for i in range(0, 3):  # diagonal
-            toright.append(self.matrix[i][i])
-            toleft.append(self.matrix[3 - i - 1][i])
-        if toright.count(symbol) == 2 and toright.count('_') == 1:
-            return [str(toright.index('_') + 1), str(i)]
-        if toleft.count(symbol) == 2 and toleft.count('_') == 1:
-            return [str(toleft.index('_') + 1), str(i)]
-        return ['0', '0']
+            diag_right.append(self.matrix[i][i])
+            diag_left.append(self.matrix[3 - i - 1][i])
+        if diag_right.count(symbol) == 2 and diag_right.count('_') == 1:
+            return [str(diag_right.index('_') + 1), str(i)]
+        if diag_left.count(symbol) == 2 and diag_left.count('_') == 1:
+            return [str(diag_left.index('_') + 1), str(i)]
+        if get_easy:
+            return self.get_easy_coordinate()
+        else:
+            return ['0', '0']
 
     def do_move(self, user, symbol):
         """
@@ -78,12 +79,11 @@ class Tictactoe:
             elif user == 'medium':
                 in_list = self.get_medium_coordinate(symbol)  # check user can win
                 if in_list == ['0', '0']:
-                    in_list = self.get_medium_coordinate(
-                        self.symX if symbol == self.symO else self.symO)  # opponent can win
-                    if in_list == ['0', '0']:
-                        in_list = self.get_easy_coordinate()
+                    other_sym = self.symX if symbol == self.symO else self.symO
+                    in_list = self.get_medium_coordinate(other_sym, True)  # opponent can win
             else:
                 in_list = self.get_easy_coordinate()
+            print('check' + str(in_list))
             self.check_input(in_list, is_user)
             if self.correct_input:
                 if not is_user:
@@ -155,7 +155,8 @@ while True:
             print('Bad parameters!')
         else:
             main_game = Tictactoe(in_string[1], in_string[2])
-            main_game.first_init('_________')
+            #main_game.first_init('_________')
+            main_game.first_init('__XXOO_XO')
             main_game.action_game()
             if main_game.game_state == 'exit':
                 break

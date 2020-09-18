@@ -28,8 +28,9 @@ def print_matrix(matrix):
 
 
 def get_medium_coordinate(matrix, symbol):
+    self_rows = [2, 1, 0]
     for i in range(0, 3):  # row
-        if matrix[i].count(symbol) == 2 and matrix[i].count('_') == 1:
+        if matrix[self_rows[i]].count(symbol) == 2 and matrix[i].count('_') == 1:
             return [i + 1, matrix[i].index('_') + 1]
     for j in range(0, 3):  # column
         col = []
@@ -52,6 +53,6 @@ def get_medium_coordinate(matrix, symbol):
     return [0, 0]
 
 
-matrix = first_init('X___O_XXO')
+matrix = first_init('_XXXOO_XO')
 print_matrix(matrix)
 print(get_medium_coordinate(matrix, 'X'))
