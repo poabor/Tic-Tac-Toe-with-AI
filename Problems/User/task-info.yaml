@@ -1,0 +1,17 @@
+type: code
+files:
+- name: main.py
+  visible: true
+  text: |-
+    class User:
+        # create the class attributes
+
+        # create the __init__ method
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/6681
+status: Solved
+feedback:
+  message: <html>Correct solution<br/><br/>Continue on <a href="https://hyperskill.org/learn/step/6681">JetBrains
+    Academy</a></html>
+  time: Mon, 14 Sep 2020 10:04:28 UTC
+record: -1
