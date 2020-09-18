@@ -65,7 +65,6 @@ class Tictactoe:
 
     def do_move(self, user, symbol):
         """
-
         @type user: str
         @type symbol: str
         """
@@ -85,7 +84,6 @@ class Tictactoe:
                         in_list = self.get_easy_coordinate()
             else:
                 in_list = self.get_easy_coordinate()
-            # print('list: ' + str(in_list))
             self.check_input(in_list, is_user)
             if self.correct_input:
                 if not is_user:
@@ -93,7 +91,6 @@ class Tictactoe:
                 i = self.rows[int(in_list[1]) - 1]
                 j = int(in_list[0]) - 1
                 self.matrix[i][j] = symbol
-                # self.print_matrix()
                 self.set_state()
         self.correct_input = False
 
@@ -123,7 +120,6 @@ class Tictactoe:
             self.game_state = self.symO + ' wins'
         elif not self.check_empty():
             self.game_state = 'Draw'
-        # print(': ' + self.game_state)
 
     def check_diagonal(self, symb):
         toright = True
