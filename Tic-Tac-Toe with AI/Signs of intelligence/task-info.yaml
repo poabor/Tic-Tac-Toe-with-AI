@@ -262,5 +262,9 @@ files:
     class Player:
   learner_created: true
 feedback_link: https://hyperskill.org/projects/82/stages/455/implement
-status: Unchecked
+status: Failed
+feedback:
+  message: No tests have run. For more information, see <a href="https://www.jetbrains.com/help/education/troubleshooting-guide.html#no_tests_have_run">the
+    Troubleshooting Guide</a>
+  time: Mon, 21 Sep 2020 05:46:43 UTC
 record: -1

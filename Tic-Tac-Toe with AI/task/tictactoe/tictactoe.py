@@ -56,9 +56,9 @@ class Tictactoe:
             diag_right.append(self.matrix[i][i])
             diag_left.append(self.matrix[3 - i - 1][i])
         if diag_right.count(symbol) == 2 and diag_right.count('_') == 1:
-            return [str(diag_right.index('_') + 1), str(i)]
+            return [str(diag_right.index('_') + 1), self.rows[diag_right.index('_') + 1]]
         if diag_left.count(symbol) == 2 and diag_left.count('_') == 1:
-            return [str(diag_left.index('_') + 1), str(i)]
+            return [str(diag_left.index('_') + 1), str(diag_left.index(')') + 1)]
         if get_easy:
             return self.get_easy_coordinate()
         else:
