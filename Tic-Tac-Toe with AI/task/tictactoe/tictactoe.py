@@ -16,7 +16,7 @@ class Tictactoe:
         self.user2 = user2
 
     def first_init(self, cells):
-        print(self.game_state)
+        #print(self.game_state)
         rows = textwrap.wrap(cells, 3)
         for row in rows:
             self.matrix.append([x for x in row])
@@ -38,7 +38,10 @@ class Tictactoe:
 
     @staticmethod
     def get_easy_coordinate():
-        return [random.choice('123'), random.choice('123')]
+        it_row = random.choice('123')
+        it_col = str(random.randint(1, 3))
+        #print([it_row, it_col])
+        return [it_row, it_col]
 
     def get_medium_coordinate(self, symbol, get_easy=False):
         for i in range(0, 3):  # row
@@ -83,7 +86,7 @@ class Tictactoe:
                     in_list = self.get_medium_coordinate(other_sym, True)  # opponent can win
             else:
                 in_list = self.get_easy_coordinate()
-            print('check' + str(in_list))
+            # print('check' + str(in_list))
             self.check_input(in_list, is_user)
             if self.correct_input:
                 if not is_user:
@@ -101,6 +104,7 @@ class Tictactoe:
         print(self.devider)
 
     def check_input(self, var_input, is_user):
+        print([x for x in var_input], 'var')
         if len([x for x in var_input if x.isdigit()]) != 2:
             print('You should enter numbers!')
         elif len([x for x in var_input if int(x) > 3]) or len([x for x in var_input if int(x) < 1]):
@@ -130,12 +134,14 @@ class Tictactoe:
         return toleft or toright
 
     def check_line(self, symb):
-        for col in range(0, 3):
+        for row in range(0, 3):
             cols = True
             rows = True
-            for row in range(0, 3):
+            for col in range(0, 3):
                 cols &= (self.matrix[col][row] == symb)
                 rows &= (self.matrix[row][col] == symb)
+            if cols or rows:
+                return True
         return cols or rows
 
     def check_empty(self):

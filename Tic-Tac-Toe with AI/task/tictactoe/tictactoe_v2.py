@@ -47,16 +47,28 @@ def get_medium_coordinate(matrix, symbol):
         toleft.append(matrix[3 - i - 1][i])
     if toright.count(symbol) == 2 and toright.count('_') == 1:
         print('toright: ' + str(toright))
-        return [toright.index('_') + 1, self_rows[toright.index('_')] + 1]
+        return [str(toright.index('_') + 1), str(self_rows[toright.index('_')] + 1)]
     if toleft.count(symbol) == 2 and toleft.count('_') == 1:
         print('toleft: ' + str(toleft), toleft.index('_'))
-        return [toleft.index('_') + 1, toleft.index('_') + 1]
+        return [str(toleft.index('_') + 1), str(toleft.index('_') + 1)]
 
     print(toright)
     print(toleft)
-    return [0, 0]
+    return ['0', '0']
+
+def check_line(matrix, symb):
+    for row in range(0, 3):
+        cols = True
+        rows = True
+        for col in range(0, 3):
+            rows &= (matrix[row][col] == symb)
+            cols &= (matrix[col][row] == symb)
+        if cols or rows:
+            return True
+    return cols or rows
 
 
-matrix = first_init('OX_XOXOXO')
+matrix = first_init('_XXXOOOXO')
 print_matrix(matrix)
 print(get_medium_coordinate(matrix, 'O'))
+#print('line: ', check_line(matrix, 'O'))

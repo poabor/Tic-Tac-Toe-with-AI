@@ -1,6 +1,11 @@
 type: edu
 custom_name: stage4
 files:
+- name: tictactoe/tictactoe.py
+  visible: true
+  text: |
+    # write your code here
+  learner_created: false
 - name: tests.py
   visible: false
   text: |
@@ -256,15 +261,9 @@ files:
 
     class Player:
   learner_created: true
-- name: tictactoe/tictactoe.py
+- name: tictactoe/check_win.py
   visible: true
-  text: |
-    # write your code here
-  learner_created: false
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/82/stages/455/implement
 status: Failed
-feedback:
-  message: No tests have run. For more information, see <a href="https://www.jetbrains.com/help/education/troubleshooting-guide.html#no_tests_have_run">the
-    Troubleshooting Guide</a>
-  time: Mon, 21 Sep 2020 05:55:57 UTC
 record: -1
