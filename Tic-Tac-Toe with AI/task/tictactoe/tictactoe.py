@@ -45,10 +45,11 @@ class Tictactoe:
     def get_user_coordinate(self, user_list):
         if len([x for x in user_list if x.isdigit()]) != 2:
             print('You should enter numbers!')
-        elif len([x for x in user_list if int(x) > 3]) or len([x for x in user_list if int(x) < 1]):
+        elif len([x for x in user_list if int(x) > 3]) > 0 or len([x for x in user_list if int(x) < 1]) > 0:
             print('Coordinates should be from 1 to 3!')
         else:
             return self.convert_user_move(user_list)
+        return None
 
     def get_easy_coordinate(self):
         self.rand += 1
@@ -115,7 +116,9 @@ class Tictactoe:
         print(self.devider)
 
     def check_input(self, in_list, is_user):
-        if self.matrix[in_list[0]][in_list[1]] == '_':
+        if in_list == None:
+            pass
+        elif self.matrix[in_list[0]][in_list[1]] == '_':
             self.correct_input = True
         elif is_user:
             print('This cell is occupied! Choose another one!')
