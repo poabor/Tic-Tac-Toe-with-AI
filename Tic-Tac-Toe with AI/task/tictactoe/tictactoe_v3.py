@@ -9,7 +9,7 @@ class Tictactoe:
         self.matrix = []
         self.correct_input = False
         self.game_state = 'Game not finished'
-        self.rows = [2, 1, 0]
+        #self.rows = [2, 1, 0]
         self.symX = 'X'
         self.symO = 'O'
         self.user1 = user1
@@ -40,23 +40,20 @@ class Tictactoe:
     def get_easy_coordinate(self):
         self.rand += 1
         random.seed(self.rand)
-        it_row = random.choice('123')
-        it_col = random.choice('123') #str(random.randint(1, 3))
-        print('easy: ', [it_row, it_col])
-        return [it_row, it_col]
+        return [random.choice('123'), random.choice('123')]
 
     def get_medium_coordinate(self, symbol, get_easy=False):
         for i in range(0, 3):  # row
             if self.matrix[i].count(symbol) == 2 and self.matrix[i].count('_') == 1:
                 #print('row: ', str(i + 1), str(self.matrix[i].index('_') + 1))
-                return [str(self.matrix[i].index('_') + 1), str(i + 1)]
+                return [i, self.matrix[i].index('_')]
         for j in range(0, 3):  # column
             col = []
             for i in range(0, 3):
                 col.append(self.matrix[i][j])
             if col.count(symbol) == 2 and col.count('_') == 1:
                 #print('col: ', str(col.index('_') + 1), str(j + 1))
-                return [str(j + 1), str(self.rows[col.index('_')] + 1)]
+                return [col.index('_'), j]
         diag_right = []
         diag_left = []
         for i in range(0, 3):  # diagonal
@@ -64,15 +61,22 @@ class Tictactoe:
             diag_left.append(self.matrix[3 - i - 1][i])
         if diag_right.count(symbol) == 2 and diag_right.count('_') == 1:
             #print('toright: ', [str(diag_right.index('_') + 1), self.rows[diag_right.index('_') + 1]])
-            return [str(self.rows[diag_right.index('_') + 1]), str(diag_right.index('_') + 1)]
+            return [diag_right.index('_'), diag_right.index('_')]
         if diag_left.count(symbol) == 2 and diag_left.count('_') == 1:
             #print('toleft: ', [str(diag_left.index('_') + 1), str(diag_left.index(')') + 1)])
-            return [str(diag_left.index('_') + 1), str(diag_left.index(')') + 1)]
+            return [diag_left.index('_'), diag_left.index('_')]
         if get_easy:
             #print('easy: ')
             return self.get_easy_coordinate()
         else:
-            return ['0', '0']
+            return [0, 0]
+
+    @staticmethod
+    def convert_user_move(user_list):
+        rows = [2, 1, 0]
+        user_list.reverse()
+        u_list = list(map(int, user_list))
+        return [rows[u_list[0] - 1], u_list[1] - 1]
 
     def do_move(self, user, symbol):
         """
@@ -82,13 +86,15 @@ class Tictactoe:
         while not self.correct_input:
             is_user = (user == 'user')
             if is_user:
-                in_list = input('Enter the coordinates: ').split()
-                if in_list[0] == 'exit':
+                user_list = input('Enter the coordinates: ').split()
+                if user_list[0] == 'exit':
                     self.game_state = 'exit'
                     break
+                else:
+                    in_list = self.convert_user_move(user_list)
             elif user == 'medium':
                 in_list = self.get_medium_coordinate(symbol)  # check user can win
-                if in_list == ['0', '0']:
+                if in_list == [0, 0]:
                     other_sym = self.symX if symbol == self.symO else self.symO
                     in_list = self.get_medium_coordinate(other_sym, True)  # opponent can win
             else:
@@ -98,9 +104,7 @@ class Tictactoe:
             if self.correct_input:
                 if not is_user:
                     print('Making move level "{}"'.format(user))
-                i = self.rows[int(in_list[1]) - 1]
-                j = int(in_list[0]) - 1
-                self.matrix[i][j] = symbol
+                self.matrix[in_list[0]][in_list[1]] = symbol
                 self.set_state()
         self.correct_input = False
 
@@ -110,16 +114,14 @@ class Tictactoe:
             print('| ' + ' '.join(i.replace('_', ' ') for i in row) + ' |')
         print(self.devider)
 
-    def check_input(self, var_input, is_user):
-        print([x for x in var_input], 'var')
-        if len([x for x in var_input if x.isdigit()]) != 2:
+    def check_input(self, in_list, is_user):
+        print([x for x in in_list], 'var')
+        if len([x for x in in_list if x.isdigit()]) != 2:
             print('You should enter numbers!')
-        elif len([x for x in var_input if int(x) > 3]) or len([x for x in var_input if int(x) < 1]):
+        elif len([x for x in in_list if int(x) > 3]) or len([x for x in in_list if int(x) < 1]):
             print('Coordinates should be from 1 to 3!')
         else:
-            i = self.rows[int(var_input[1]) - 1]
-            j = int(var_input[0]) - 1
-            if self.matrix[i][j] == '_':
+            if self.matrix[in_list[0]][in_list[1]] == '_':
                 self.correct_input = True
             elif is_user:
                 print('This cell is occupied! Choose another one!')

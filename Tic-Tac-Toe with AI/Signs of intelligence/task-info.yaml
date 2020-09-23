@@ -261,7 +261,7 @@ files:
 
     class Player:
   learner_created: true
-- name: tictactoe/check_win.py
+- name: tictactoe/tictactoe_v3.py
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/82/stages/455/implement
