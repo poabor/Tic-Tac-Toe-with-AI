@@ -90,11 +90,8 @@ def in_user():
     return in_list
 
 matrix = first_init('X_OOXXX__')
-print_matrix(matrix)
-# in_list = get_medium_coordinate(matrix, 'X')
-# print(in_list)
-# check_input(matrix, in_list)
-#print('line: ', check_line(matrix, 'O'))
-#print(in_user())
-user_list = ['3', '1']
-print(len([x for x in user_list if int(x) > 3]))
+# print_matrix(matrix)
+# user_list = ['3', '1']
+# print(len([x for x in user_list if int(x) > 3]))
+my_list = [3, 9, 27, 81, 243, 729, 2187]
+print(my_list[7])

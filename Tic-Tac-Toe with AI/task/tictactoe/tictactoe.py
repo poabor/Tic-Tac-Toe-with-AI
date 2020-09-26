@@ -118,6 +118,7 @@ class Tictactoe:
     def check_input(self, in_list, is_user):
         if in_list == None:
             pass
+
         elif self.matrix[in_list[0]][in_list[1]] == '_':
             self.correct_input = True
         elif is_user:

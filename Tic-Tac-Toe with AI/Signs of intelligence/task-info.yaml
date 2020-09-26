@@ -261,13 +261,10 @@ files:
 
     class Player:
   learner_created: true
-- name: tictactoe/tictactoe_v3.py
-  visible: true
-  learner_created: true
 feedback_link: https://hyperskill.org/projects/82/stages/455/implement
 status: Solved
 feedback:
   message: Congratulations! Continue on <a href="https://hyperskill.org/projects/82/stages/455/implement">JetBrains
     Academy</a>
   time: Wed, 23 Sep 2020 20:05:31 UTC
-record: -1
+record: 4
