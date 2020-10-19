@@ -80,6 +80,79 @@ class Tictactoe:
         else:
             return [0, 0]
 
+    def empty_indexes(self, board):
+        return [i for i, j in enumerate(board) if str(j) not in 'XO']
+
+
+    def wining(self, board, player):
+        if ((board[0] == player and board[1] == player and board[2] == player) |
+                (board[3] == player and board[4] == player and board[5] == player) |
+                (board[6] == player and board[7] == player and board[8] == player) |
+                (board[0] == player and board[3] == player and board[6] == player) |
+                (board[1] == player and board[4] == player and board[7] == player) |
+                (board[2] == player and board[5] == player and board[8] == player) |
+                (board[0] == player and board[4] == player and board[8] == player) |
+                (board[2] == player and board[4] == player and board[6] == player)):
+            return True
+        else:
+            return False
+
+    def minimax(self, newBoard, player):
+        if player == self.symO:
+            hu_player = self.symX
+        else:
+            hu_player = self.symO
+        avail_spots = self.empty_indexes(newBoard)
+        if self.wining(newBoard, hu_player):
+            return {'score': -10}
+        elif self.wining(newBoard, player):
+            return {'score': 10}
+        elif len(avail_spots) == 0:
+            return {'score': 0}
+        moves = []
+        for i in avail_spots:
+            move = {}
+            move['index'] = i  # newBoard[avail_spots[i]]
+            newBoard[i] = player
+            if player == player:
+                result = self.minimax(newBoard, hu_player)
+                move['score'] = result['score']
+            else:
+                result = self.minimax(newBoard, player)
+                move['score'] = result['score']
+            newBoard[i] = move['index']
+            moves.append(move)
+        if player == player:
+            best_score = -10000
+            for j, i in enumerate(moves):
+                if i['score'] > best_score:
+                    best_score = i['score']
+                    best_move = j
+        else:
+            best_score = 10000
+            for j, i in enumerate(moves):
+                if i['score'] < best_score:
+                    best_score = i['score']
+                    best_move = j
+        return moves[best_move]
+
+    def get_hard_coordinate(self, symbol):
+        flat_matrix = []
+        for i in self.matrix:
+            for j in i:
+                flat_matrix.append(j)
+        best_move = self.minimax(flat_matrix, symbol)
+        print(best_move)
+        if best_move['index'] <= 2:
+            i = 0
+        elif best_move['index'] <= 5:
+            i = 1
+        else:
+            i = 2
+        j = best_move['index'] % 3
+        # print('j ' + str(j))
+        return [i, j]
+
     def do_move(self, user, symbol):
         """
         @type user: str
@@ -99,6 +172,8 @@ class Tictactoe:
                 if in_list == [0, 0]:
                     other_sym = self.symX if symbol == self.symO else self.symO
                     in_list = self.get_medium_coordinate(other_sym, True)  # opponent can win
+            elif user == 'hard':
+                in_list = self.get_hard_coordinate(symbol)
             else:
                 in_list = self.get_easy_coordinate()
             self.check_input(in_list, is_user)
@@ -168,8 +243,9 @@ while True:
             print('Bad parameters!')
         else:
             main_game = Tictactoe(in_string[1], in_string[2])
-            main_game.first_init('_________')
-            # main_game.first_init('__XXOO_XO')
+            start_board = 'O_XX_X_OO'
+            start_board = '_________'
+            main_game.first_init(start_board)
             main_game.action_game()
             if main_game.game_state == 'exit':
                 break

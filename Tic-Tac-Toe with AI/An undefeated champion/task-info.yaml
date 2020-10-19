@@ -1,11 +1,6 @@
 type: edu
 custom_name: stage5
 files:
-- name: tictactoe/tictactoe.py
-  visible: true
-  text: |
-    # write your code here
-  learner_created: false
 - name: tests.py
   visible: false
   text: |
@@ -269,6 +264,9 @@ files:
     if __name__ == '__main__':
         TicTacToeTest('tictactoe.tictactoe').run_tests()
   learner_created: false
+- name: tictactoe/temp.py
+  visible: true
+  learner_created: true
 - name: tictactoe/tictactoe_v2.py
   visible: true
   text: |-
@@ -373,6 +371,15 @@ files:
     user_list = ['3', '1']
     print(len([x for x in user_list if int(x) > 3]))
   learner_created: true
+- name: tictactoe/tictactoe.py
+  visible: true
+  text: |
+    # write your code here
+  learner_created: false
 feedback_link: https://hyperskill.org/projects/82/stages/456/implement
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/82/stages/456/implement">JetBrains
+    Academy</a>
+  time: Mon, 19 Oct 2020 19:11:17 UTC
 record: -1

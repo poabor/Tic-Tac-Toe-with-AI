@@ -18,7 +18,7 @@ stages:
   is_completed: true
 - id: 456
   step: 7443
-  is_completed: false
+  is_completed: true
 topics:
   0:
   - title: Introduction to Python
@@ -93,7 +93,7 @@ topics:
     theory_id: 6972
   1:
   - title: IDE
-    theory_id: 3805
+    theory_id: 10996
   - title: Load module
     theory_id: 6019
   - title: Random module
@@ -119,8 +119,10 @@ topics:
     theory_id: 6031
   - title: Functional decomposition
     theory_id: 9571
-  - title: Operations with dictionary
+  - title: Dictionary methods
     theory_id: 9008
+  - title: Operations with dictionary
+    theory_id: 11096
   - title: Default arguments
     theory_id: 10295
   - title: Args
